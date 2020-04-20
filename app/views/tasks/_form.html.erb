@@ -1,10 +1,10 @@
 <%= link_to t("activerecord.view.task.tasks_list"), root_path %>
 
-<%# if @task.errors.present? %>
-<%# @task.errors.full_messages.each do |message| %>
-<%#= message %>
-<%# end %>
-<%# end %>
+<% if @task.errors.present? %>
+  <% @task.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
 
 <%= form_with(model: task,local: true) do |f| %>
   <%= f.label "task_name",id: 'task_name' %>
