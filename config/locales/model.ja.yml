@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      tasks: タスク
+    attributes:
+      task:
+        task_name: タスク名
+        description: タスク詳細
+    view:
+      task:
+        tasks_list: タスク一覧
+        new_task: タスク登録
+        edit_task: 編集
+        destroy_task: 削除
+        task_show: タスク_詳細画面
+        Are you sure you want to delete it?: 本当に削除してもいいですか？
+
+

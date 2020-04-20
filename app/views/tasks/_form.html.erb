@@ -1,15 +1,15 @@
-<%= link_to "タスク一覧", root_path %>
+<%= link_to t("activerecord.view.task.tasks_list"), root_path %>
 
-<%# if @task.errors.present? %>
-<%# @task.errors.full_messages.each do |message| %>
-<%#= message %>
-<%# end %>
-<%# end %>
+<% if @task.errors.present? %>
+  <% @task.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
 
 <%= form_with(model: task,local: true) do |f| %>
-  <%= f.label "タスク名",id: 'task_name' %>
+  <%= f.label "task_name",id: 'task_name' %>
   <%= f.text_field :task_name %>
-  <%= f.label "詳細",id: 'task_description' %>
+  <%= f.label "description",id: 'task_description' %>
   <%= f.text_field :description %>
-  <%= f.submit "登録する" %>
+  <%= f.submit t("helpers.submit.create") %>
 <% end %>
