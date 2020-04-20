@@ -1,0 +1,15 @@
+<%= link_to "タスク一覧", root_path %>
+
+<%# if @task.errors.present? %>
+<%# @task.errors.full_messages.each do |message| %>
+<%#= message %>
+<%# end %>
+<%# end %>
+
+<%= form_with(model: task,local: true) do |f| %>
+  <%= f.label "タスク名",id: 'task_name' %>
+  <%= f.text_field :task_name %>
+  <%= f.label "詳細",id: 'task_description' %>
+  <%= f.text_field :description %>
+  <%= f.submit "登録する" %>
+<% end %>
