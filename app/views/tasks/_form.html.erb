@@ -1,4 +1,4 @@
-<%= link_to "タスク一覧", root_path %>
+<%= link_to t("activerecord.view.task.tasks_list"), root_path %>
 
 <%# if @task.errors.present? %>
 <%# @task.errors.full_messages.each do |message| %>
@@ -11,5 +11,5 @@
   <%= f.text_field :task_name %>
   <%= f.label "description",id: 'task_description' %>
   <%= f.text_field :description %>
-  <%= f.submit "登録する" %>
+  <%= f.submit t("helpers.submit.create") %>
 <% end %>
