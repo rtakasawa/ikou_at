@@ -13,5 +13,7 @@
   <%= f.text_field :description %>
   <%= f.label "deadline",id: 'task_deadline' %>
   <%= f.date_field :deadline %>
+  <%= f.label "status",id: 'task_status' %>
+  <%= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")] %>
   <%= f.submit t("helpers.submit.create") %>
 <% end %>
