@@ -11,5 +11,7 @@
   <%= f.text_field :task_name %>
   <%= f.label "description",id: 'task_description' %>
   <%= f.text_field :description %>
+  <%= f.label "deadline",id: 'task_deadline' %>
+  <%= f.date_field :deadline %>
   <%= f.submit t("helpers.submit.create") %>
 <% end %>

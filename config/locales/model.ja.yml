@@ -6,6 +6,7 @@ ja:
       task:
         task_name: タスク名
         description: タスク詳細
+        deadline: 終了期限
     view:
       task:
         tasks_list: タスク一覧
