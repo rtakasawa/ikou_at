@@ -24,6 +24,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[2]).to have_content "test_name1"
       end
     end
+
+    context "複数のタスクを作成した場合" do
+      it "ソートボタンをクリックすると終了期限の降順に並び替えることができる" do
+        visit tasks_path
+        click_on "終了期限でソートする"
+        task_list = all('tbody tr' )
+        expect(task_list[0]).to have_content "test_name3"
+        expect(task_list[1]).to have_content "test_name2"
+        expect(task_list[2]).to have_content "test_name1"
+      end
+    end
   end
 
   describe 'タスク登録画面' do
@@ -32,9 +43,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[task_name]', with: "test_task_name"
         fill_in 'task[description]', with: "test_description"
+        fill_in 'task[deadline]', with: Date.today
         click_button "登録する"
         expect(page).to have_content "test_task_name"
         expect(page).to have_content "test_description"
+        expect(page).to have_content Date.today
       end
     end
   end
@@ -46,6 +59,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on "test_name1"
         expect(page).to have_content "test_name1"
         expect(page).to have_content "test_description1"
+        expect(page).to have_content '1900-01-01'
       end
     end
   end
