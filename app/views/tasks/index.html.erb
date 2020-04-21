@@ -2,6 +2,14 @@
 <%= link_to t("activerecord.view.task.new_task"), new_task_path %>
 <%= link_to t("activerecord.view.task.sort_deadline_desc"), tasks_path(sort_expired: "true" ) %>
 
+<%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |s| %>
+  <%= s.label(:task_name, t("activerecord.attributes.task.task_name")) %>
+  <%= s.text_field :task_name %>
+  <%= s.label(:status, t("activerecord.attributes.task.status")) %>
+  <%= s.select :status, [ "",t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")] %>
+  <%= s.submit %>
+<% end %>
+
 <table>
   <thead>
   <tr>
