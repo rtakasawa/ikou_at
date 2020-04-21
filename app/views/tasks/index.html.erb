@@ -6,6 +6,7 @@
   <tr>
     <th><%= t('activerecord.attributes.task.task_name') %></th>
     <th><%= t('activerecord.attributes.task.description') %></th>
+    <th><%= t('activerecord.attributes.task.deadline') %></th>
   </tr>
   </thead>
 
@@ -14,6 +15,7 @@
   <tr>
     <td><%= link_to task.task_name, task_path(task) %></td>
     <td><%= task.description %></td>
+    <td><%= task.deadline %></td>
     <td><%= link_to t("activerecord.view.task.edit_task"), edit_task_path(task) %></td>
     <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete, data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
   </tr>
