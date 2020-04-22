@@ -15,5 +15,7 @@
   <%= f.date_field :deadline %>
   <%= f.label "status",id: 'task_status' %>
   <%= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")] %>
+  <%= f.label "rank",id: 'task_rank' %>
+  <%= f.select :rank, Task.ranks.keys.to_a %>
   <%= f.submit t("helpers.submit.create") %>
 <% end %>

@@ -1,6 +1,7 @@
 <h1><%= t("activerecord.view.task.tasks_list") %></h1>
 <%= link_to t("activerecord.view.task.new_task"), new_task_path %>
 <%= link_to t("activerecord.view.task.sort_deadline_desc"), tasks_path(sort_expired: "true" ) %>
+<%= link_to t("activerecord.view.task.sort_rank_desc"), tasks_path(sort_rank: "true" ) %>
 
 <%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |s| %>
   <%= s.label(:task_name, t("activerecord.attributes.task.task_name")) %>
@@ -17,6 +18,7 @@
     <th><%= t('activerecord.attributes.task.description') %></th>
     <th><%= t('activerecord.attributes.task.deadline') %></th>
     <th><%= t('activerecord.attributes.task.status') %></th>
+    <th><%= t('activerecord.attributes.task.rank') %></th>
   </tr>
   </thead>
 
@@ -27,8 +29,10 @@
     <td><%= task.description %></td>
     <td><%= task.deadline %></td>
     <td><%= task.status %></td>
+    <td><%= task.rank %></td>
     <td><%= link_to t("activerecord.view.task.edit_task"), edit_task_path(task) %></td>
-    <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete, data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
+    <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete,
+                    data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
   </tr>
   <% end %>
   </tbody>
