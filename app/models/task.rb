@@ -7,4 +7,7 @@ class Task < ApplicationRecord
   scope :search_status, ->(status) {where(status: status)}
 
   enum rank:{ 低: 0, 中: 1, 高: 2 }
+
+  paginates_per 10
+
 end
