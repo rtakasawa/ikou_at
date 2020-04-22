@@ -7,7 +7,7 @@
   <%= s.text_field :task_name %>
   <%= s.label(:status, t("activerecord.attributes.task.status")) %>
   <%= s.select :status, [ "",t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")] %>
-  <%= s.submit %>
+  <%= s.submit t("activerecord.view.task.search") %>
 <% end %>
 
 <table>

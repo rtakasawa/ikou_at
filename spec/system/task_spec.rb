@@ -25,6 +25,29 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
 
+    context "検索した場合" do
+      it "タスク名検索ができる" do
+        visit tasks_path
+        fill_in "search[task_name]", with: 'test_name1'
+        click_on "検索する"
+        expect(page).to have_content 'test_name1'
+      end
+      it "ステータス検索ができる" do
+        visit tasks_path
+        select "未着手", from: "search[status]"
+        click_on "検索する"
+        expect(page).to have_content '未着手'
+      end
+      it "タスク名とステータスの両方で検索ができる" do
+        visit tasks_path
+        fill_in "search[task_name]", with: 'test_name1'
+        select "未着手", from: "search[status]"
+        click_on "検索する"
+        expect(page).to have_content 'test_name1'
+        expect(page).to have_content '未着手'
+      end
+    end
+
     context "複数のタスクを作成した場合" do
       it "ソートボタンをクリックすると終了期限の降順に並び替えることができる" do
         visit tasks_path
