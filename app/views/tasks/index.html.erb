@@ -35,5 +35,6 @@
                     data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
   </tr>
   <% end %>
+  <%= paginate @tasks %>
   </tbody>
 </table>

@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
 
-  wait = Selenium::WebDriver::Wait.new(:timeout => 100)
+  wait = Selenium::WebDriver::Wait.new(:timeout => 200)
 
   describe 'タスク一覧画面' do
     before do
@@ -59,7 +59,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         wait.until{ expect(task_list[1]).to have_content '2000-01-01' }
         wait.until{ expect(task_list[2]).to have_content '1900-01-01' }
       end
-      it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる" do
+      it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる" , :retry => 3 do
         visit tasks_path
         click_on "優先順位でソートする"
         task_list = all('tbody tr' )
