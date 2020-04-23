@@ -24,11 +24,13 @@ RSpec.describe 'タスク管理機能', type: :model do
       Task.create(task_name: "name_test1",
                   description: "test_description1",
                   deadline: Date.today,
-                  status: "未着手" )
+                  status: "未着手",
+                  rank: 0)
       Task.create(task_name: "name_test2",
                   description: "test_description2",
                   deadline: Date.today,
-                  status: "着手中" )
+                  status: "着手中",
+                  rank: 1)
     end
     it "scopeメソッドでタスク名検索ができる" do
       expect(Task.search_task_name("name").count).to eq 2
