@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task,notice: "タスクが登録されました"
+      redirect_to @task,success: "タスクが登録されました"
     else
       render "new"
     end
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path, notice: "タスクは更新されました"
+      redirect_to task_path, info: "タスクは更新されました"
     else
       render "edit"
     end
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path,notice: "タスクは削除されました"
+    redirect_to root_path,info: "タスクは削除されました"
   end
 
   private

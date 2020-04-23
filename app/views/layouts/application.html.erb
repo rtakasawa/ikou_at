@@ -9,9 +9,13 @@
   </head>
 
   <body>
-  <p id="notice"><%= notice %></p>
-
-  <%= yield %>
-
+  <div class="container">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name %>">
+        <%= msg.html_safe %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
   </body>
 </html>

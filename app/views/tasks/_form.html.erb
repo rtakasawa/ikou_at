@@ -1,21 +1,40 @@
-<%= link_to t("activerecord.view.task.tasks_list"), root_path %>
+<div class="task_header_nav">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <%= link_to t("activerecord.view.task.tasks_list"), root_path, class: "nav-link active btn btn-primary" %>
+    </li>
+  </ul>
+</div>
 
 <% if @task.errors.present? %>
   <% @task.errors.full_messages.each do |message| %>
-    <%= message %>
+    <div class="alert alert-danger" role="alert">
+      <%= message %>
+    </div>
   <% end %>
 <% end %>
 
 <%= form_with(model: task,local: true) do |f| %>
-  <%= f.label "task_name",id: 'task_name' %>
-  <%= f.text_field :task_name %>
-  <%= f.label "description",id: 'task_description' %>
-  <%= f.text_field :description %>
-  <%= f.label "deadline",id: 'task_deadline' %>
-  <%= f.date_field :deadline %>
-  <%= f.label "status",id: 'task_status' %>
-  <%= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")] %>
-  <%= f.label "rank",id: 'task_rank' %>
-  <%= f.select :rank, Task.ranks.keys.to_a %>
-  <%= f.submit t("helpers.submit.create") %>
+  <div class="form-group">
+    <%= f.label "task_name",id: 'task_name' %>
+    <%= f.text_field :task_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "description",id: 'task_description' %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "deadline",id: 'task_deadline' %>
+    <%= f.date_field :deadline, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <%= f.label "status",id: 'task_status' %>
+    <%#= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")], class: "form-control"  %>
+    <%= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")], {}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "rank",id: 'task_rank' %>
+    <%= f.select :rank, Task.ranks.keys.to_a, {}, class: "form-control" %>
+  </div>
+  <%= f.submit t("helpers.submit.create"), class: "btn btn-primary" %>
 <% end %>
