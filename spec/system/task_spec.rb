@@ -1,6 +1,8 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
 
+  wait = Selenium::WebDriver::Wait.new(:timeout => 200)
+
   describe 'タスク一覧画面' do
     before do
       FactoryBot.create(:task)
@@ -10,18 +12,60 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '複数のタスクを作成した場合' do
       it '作成済みのタスクが表示される' do
         visit tasks_path
-        expect(page).to have_content "test_name1"
-        expect(page).to have_content "test_name2"
-        expect(page).to have_content "test_name3"
+        wait.until{ expect(page).to have_content "test_name1" }
+        wait.until{ expect(page).to have_content "test_name3" }
+        wait.until{ expect(page).to have_content "test_name2" }
       end
     end
     context '複数のタスクを作成した場合' do
       it 'タスクが作成日時の降順に並んでいる' do
         visit tasks_path
         task_list = all('tbody tr' )
-        expect(task_list[0]).to have_content "test_name3"
-        expect(task_list[1]).to have_content "test_name2"
-        expect(task_list[2]).to have_content "test_name1"
+        wait.until{ expect(task_list[0]).to have_content "test_name3" }
+        wait.until{ expect(task_list[1]).to have_content "test_name2" }
+        wait.until{ expect(task_list[2]).to have_content "test_name1" }
+      end
+    end
+
+    context "検索した場合" do
+      it "タスク名検索ができる" do
+        visit tasks_path
+        fill_in "search[task_name]", with: 'test_name1'
+        click_on "検索する"
+        wait.until{ expect(page).to have_content 'test_name1' }
+      end
+      it "ステータス検索ができる" do
+        visit tasks_path
+        select "未着手", from: "search[status]"
+        click_on "検索する"
+        wait.until{ expect(page).to have_content '未着手' }
+      end
+      it "タスク名とステータスの両方で検索ができる" do
+        visit tasks_path
+        fill_in "search[task_name]", with: 'test_name1'
+        select "未着手", from: "search[status]"
+        click_on "検索する"
+        wait.until{ expect(page).to have_content 'test_name1' }
+        wait.until{ expect(page).to have_content '未着手' }
+      end
+    end
+
+    context "複数のタスクを作成した場合" do
+      it "終了期限のソートボタンをクリックすると終了期限を降順に並び替えることができる" do
+        visit tasks_path
+        click_on "終了期限でソートする"
+        task_list = all('tbody tr' )
+        wait.until{ expect(task_list[0]).to have_content '2100-01-01' }
+        wait.until{ expect(task_list[1]).to have_content '2000-01-01' }
+        wait.until{ expect(task_list[2]).to have_content '1900-01-01' }
+      end
+      it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる" , :retry => 3 do
+        visit tasks_path
+        click_on "優先順位でソートする"
+        task_list = all('tbody tr' )
+        wait.until{ expect(task_list[0]).to have_content "高" }
+        wait.until{ expect(task_list[1]).to have_content "中" }
+        wait.until{ expect(task_list[2]).to have_content "低" }
       end
     end
   end
@@ -32,9 +76,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[task_name]', with: "test_task_name"
         fill_in 'task[description]', with: "test_description"
+        fill_in 'task[deadline]', with: Date.today
         click_button "登録する"
-        expect(page).to have_content "test_task_name"
-        expect(page).to have_content "test_description"
+        wait.until{ expect(page).to have_content "test_task_name" }
+        wait.until{ expect(page).to have_content "test_description" }
+        wait.until{ expect(page).to have_content Date.today }
       end
     end
   end
@@ -44,8 +90,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task)
         visit tasks_path
         click_on "test_name1"
-        expect(page).to have_content "test_name1"
-        expect(page).to have_content "test_description1"
+        wait.until{ expect(page).to have_content "test_name1" }
+        wait.until{ expect(page).to have_content "test_description1" }
+        wait.until{ expect(page).to have_content '1900-01-01' }
       end
     end
   end

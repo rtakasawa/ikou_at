@@ -6,6 +6,9 @@ ja:
       task:
         task_name: タスク名
         description: タスク詳細
+        deadline: 終了期限
+        status: ステータス
+        rank: 優先順位
     view:
       task:
         tasks_list: タスク一覧
@@ -14,5 +17,11 @@ ja:
         destroy_task: 削除
         task_show: タスク_詳細画面
         Are you sure you want to delete it?: 本当に削除してもいいですか？
+        sort_deadline_desc: 終了期限でソートする
+        sort_rank_desc: 優先順位でソートする
+        not_start: 未着手
+        doing: 着手中
+        done: 完了
+        search: 検索する
 
 

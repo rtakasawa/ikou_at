@@ -2,7 +2,23 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    if params[:sort_expired] == "true"
+      @tasks = Task.order(deadline: :desc).page(params[:page])
+    elsif params[:sort_rank] == "true"
+      @tasks = Task.order(rank: :desc).page(params[:page])
+    elsif params[:search].present?
+      if params[:search][:task_name].present? && params[:search][:status].present?
+        @tasks = Task.search_task_name(params[:search][:task_name])
+                   .search_status(params[:search][:status])
+                   .page(params[:page])
+      elsif params[:search][:task_name].present?
+        @tasks = Task.search_task_name(params[:search][:task_name]).page(params[:page])
+      else
+        @tasks = Task.search_status(params[:search][:status]).page(params[:page])
+      end
+    else
+      @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)
+    end
   end
 
   def new
@@ -12,7 +28,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task,notice: "タスクが登録されました"
+      redirect_to @task,success: "タスクが登録されました"
     else
       render "new"
     end
@@ -26,7 +42,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path, notice: "タスクは更新されました"
+      redirect_to task_path, info: "タスクは更新されました"
     else
       render "edit"
     end
@@ -34,13 +50,13 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path,notice: "タスクは削除されました"
+    redirect_to root_path,info: "タスクは削除されました"
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:task_name,:description)
+    params.require(:task).permit(:task_name, :description, :deadline, :status, :rank )
   end
 
   def set_task

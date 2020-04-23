@@ -1,22 +1,60 @@
 <h1><%= t("activerecord.view.task.tasks_list") %></h1>
-<%= link_to t("activerecord.view.task.new_task"), new_task_path %>
 
-<table>
-  <thead>
-  <tr>
-    <th><%= t('activerecord.attributes.task.task_name') %></th>
-    <th><%= t('activerecord.attributes.task.description') %></th>
-  </tr>
-  </thead>
+<div class="task_header_nav">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <%= link_to t("activerecord.view.task.new_task"), new_task_path, class: "nav-link active btn btn-primary" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to t("activerecord.view.task.sort_deadline_desc"), tasks_path(sort_expired: "true" ),class: "nav-link active btn btn-primary" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to t("activerecord.view.task.sort_rank_desc"), tasks_path(sort_rank: "true" ),class: "nav-link active btn btn-primary" %>
+  </li>
+</ul>
+</div>
 
-  <tbody>
-  <% @tasks.each do |task| %>
-  <tr>
-    <td><%= link_to task.task_name, task_path(task) %></td>
-    <td><%= task.description %></td>
-    <td><%= link_to t("activerecord.view.task.edit_task"), edit_task_path(task) %></td>
-    <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete, data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
-  </tr>
+<%= form_with(scope: :search, url: tasks_path, method: :get, local: true, class: "form-inline") do |s| %>
+  <div class="form-group">
+    <%= s.label(:task_name, t("activerecord.attributes.task.task_name")) %>
+    <%= s.text_field :task_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= s.label(:status, t("activerecord.attributes.task.status")) %>
+    <%= s.select :status, [ "",t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")], {}, class: "form-control" %>
+  </div>
+    <%= s.submit t("activerecord.view.task.search"),class:"btn btn-primary" %>
   <% end %>
-  </tbody>
-</table>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.task.task_name') %></th>
+      <th><%= t('activerecord.attributes.task.description') %></th>
+      <th><%= t('activerecord.attributes.task.deadline') %></th>
+      <th><%= t('activerecord.attributes.task.status') %></th>
+      <th><%= t('activerecord.attributes.task.rank') %></th>
+    </tr>
+    </thead>
+  
+    <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.task_name, task_path(task) %></td>
+      <td><%= task.description %></td>
+      <td><%= task.deadline %></td>
+      <td><%= task.status %></td>
+      <td><%= task.rank %></td>
+      <td><%= link_to t("activerecord.view.task.edit_task"), edit_task_path(task) %></td>
+      <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete,
+                      data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
+    </tr>
+    <% end %>
+    <%= paginate @tasks %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    </tbody>
+  </table>
