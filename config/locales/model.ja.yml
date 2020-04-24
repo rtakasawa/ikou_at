@@ -15,6 +15,9 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認用）
+        admin: 管理者権限
+        created_at: 登録日時
+        updated_at: 更新日時
     view:
       task:
         tasks_list: タスク一覧
@@ -29,10 +32,17 @@ ja:
         doing: 着手中
         done: 完了
         search: 検索する
+        count: 登録タスク数
       session:
         Log_in: ログイン
         Log_out: ログアウト
         Sign_up: サインアップ
-
-
-
+      user:
+        my_page: マイページ
+        list: ユーザー一覧
+        new: ユーザー登録
+        edit: ユーザー編集
+        destroy: ユーザー削除
+        admin_page: 管理者ページ
+        admin_show: ユーザ詳細
+        info: ユーザー情報
