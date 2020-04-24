@@ -12,10 +12,9 @@
   <div class="container">
     <% flash.each do |name, msg| %>
       <div class="alert alert-<%= name %>">
-        <%= msg.html_safe %>
+        <%= msg %>
       </div>
     <% end %>
-
 
       <div class="task_header_nav">
         <ul class="nav nav-pills">

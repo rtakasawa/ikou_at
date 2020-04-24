@@ -29,7 +29,6 @@
   </div>
   <div class="form-group">
     <%= f.label "status",id: 'task_status' %>
-    <%#= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")], class: "form-control"  %>
     <%= f.select :status, [ t("activerecord.view.task.not_start"),t("activerecord.view.task.doing"),t("activerecord.view.task.done")], {}, class: "form-control" %>
   </div>
   <div class="form-group">
