@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :check_admin
 
   def index
-    @users = User.order(created_at: :desc).page(params[:page]).per(10)
+    @users = User.includes(:tasks).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
@@ -37,8 +37,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, info: "ユーザー情報を削除しました"
+    if @user.destroy
+      redirect_to admin_users_path, info: "ユーザー情報を削除しました"
+    else
+      redirect_to admin_users_path, danger: '削除できません。少なくとも1人の管理者は必要です。'
+    end
   end
 
   private
@@ -52,10 +55,10 @@ class Admin::UsersController < ApplicationController
 
   def check_admin
     if current_user.nil?
-      redirect_to root_path
+      redirect_to new_session_path
     else
       unless current_user.admin?
-      redirect_to tasks_path
+      redirect_to tasks_path, danger: "あなたは管理者ではありません"
       end
     end
   end
