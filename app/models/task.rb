@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   validates :description, presence: true
   validates :deadline, presence: true
 
+  belongs_to :user
+
   scope :search_task_name, ->(task_name) {where("task_name LIKE ?", "%#{task_name}%")}
   scope :search_status, ->(status) {where(status: status)}
 

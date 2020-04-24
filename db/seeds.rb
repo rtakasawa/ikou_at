@@ -8,4 +8,13 @@
 #   )
 # end
 
-User.create(name: "a@gmail.com", email: "a@gmail.com", password: "a@gmail.com", password_confirmation: "a@gmail.com")
+# User.create(name: "a@gmail.com", email: "a@gmail.com", password: "a@gmail.com", password_confirmation: "a@gmail.com")
+
+Task.create(
+    task_name: "テストタスク",
+    description: "テストブログの内容",
+    deadline: Date.today,
+    status: "未着手",
+    rank: 0,
+    user_id: 4
+)
