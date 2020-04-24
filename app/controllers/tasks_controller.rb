@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
-  before_action :login_check
+  before_action :login_check_task
 
   def index
     if params[:sort_expired] == "true"
@@ -64,7 +64,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def login_check
+  def login_check_task
     unless logged_in?
       redirect_to root_path
     end
