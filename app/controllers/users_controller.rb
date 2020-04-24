@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params_user)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to tasks_path, info: "ユーザー登録しました"
     else
       render :new
