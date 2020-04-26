@@ -35,6 +35,7 @@ ja:
         count: 登録タスク数
       session:
         Log_in: ログイン
+        go_log_in: ログインする
         Log_out: ログアウト
         Sign_up: サインアップ
       user:

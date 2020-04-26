@@ -51,14 +51,14 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
 
     context "複数のタスクを作成した場合" do
-      it "終了期限のソートボタンをクリックすると終了期限を降順に並び替えることができる" do
+      it "終了期限のソートボタンをクリックすると終了期限を降順に並び替えることができる", :retry => 3 do
         click_on "終了期限でソートする"
         task_list = all('tbody tr' )
         wait.until{ expect(task_list[0]).to have_content '2100-01-01' }
         wait.until{ expect(task_list[1]).to have_content '2000-01-01' }
         wait.until{ expect(task_list[2]).to have_content '1900-01-01' }
       end
-      it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる" , :retry => 3 do
+      it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる", :retry => 3 do
         click_on "優先順位でソートする"
         task_list = all('tbody tr' )
         wait.until{ expect(task_list[0]).to have_content "高" }
