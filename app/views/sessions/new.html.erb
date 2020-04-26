@@ -9,5 +9,5 @@
     <%= f.label t("activerecord.attributes.user.password"),id: 'password' %>
     <%= f.password_field :password, class: "form-control" %>
   </div>
-  <%= f.submit "ログインする", class: "btn btn-primary" %>
+  <%= f.submit t("activerecord.view.session.go_log_in"), class: "btn btn-primary" %>
 <% end %>
