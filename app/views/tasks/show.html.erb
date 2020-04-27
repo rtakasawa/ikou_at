@@ -30,6 +30,13 @@
     <th><%= t('activerecord.attributes.task.rank') %></th>
     <td><%= @task.rank %></td>
   </tr>
+  <tr>
+    <th><%= "ラベル" %></th>
+    <% @task.labels.each do |label| %>
+      <td><%= label.title %></td>
+    <% end %>
+  </tr>
+
   </tbody>
 </table>
 
