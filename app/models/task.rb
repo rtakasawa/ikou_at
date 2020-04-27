@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   validates :deadline, presence: true
 
   belongs_to :user
+  has_many :task_to_labels, dependent: :destroy
+  has_many :labels, through: :task_to_labels
 
   scope :search_task_name, ->(task_name) {where("task_name LIKE ?", "%#{task_name}%")}
   scope :search_status, ->(status) {where(status: status)}
