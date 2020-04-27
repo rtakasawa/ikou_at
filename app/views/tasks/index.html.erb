@@ -37,6 +37,7 @@
       <th><%= t('activerecord.attributes.task.deadline') %></th>
       <th><%= t('activerecord.attributes.task.status') %></th>
       <th><%= t('activerecord.attributes.task.rank') %></th>
+      <th><%= "ラベル" %></th>
     </tr>
     </thead>
   
@@ -48,6 +49,9 @@
       <td><%= task.deadline %></td>
       <td><%= task.status %></td>
       <td><%= task.rank %></td>
+      <% task.labels.each do |label| %>
+        <td><%= label.title %></td>
+      <% end %>
       <td><%= link_to t("activerecord.view.task.edit_task"), edit_task_path(task) %></td>
       <td><%= link_to t("activerecord.view.task.destroy_task"), task, method: :delete,
                       data: { confirm: t( "activerecord.view.task.Are you sure you want to delete it?" )} %></td>
