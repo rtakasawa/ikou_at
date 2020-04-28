@@ -31,7 +31,7 @@
     <td><%= @task.rank %></td>
   </tr>
   <tr>
-    <th><%= "ラベル" %></th>
+    <th><%= t("activerecord.attributes.label.title") %></th>
     <td>
       <% @task.labels.each do |label| %>
         <span class="label label-success"><%= label.title %></span>
