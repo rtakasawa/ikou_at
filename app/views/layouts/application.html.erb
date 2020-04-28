@@ -12,10 +12,34 @@
   <div class="container">
     <% flash.each do |name, msg| %>
       <div class="alert alert-<%= name %>">
-        <%= msg.html_safe %>
+        <%= msg %>
       </div>
     <% end %>
+
+      <div class="task_header_nav">
+        <ul class="nav nav-pills">
+        <li class="nav-item">
+          <% if logged_in? %>
+            <%= link_to t("activerecord.view.session.Log_out"), session_path(current_user.id), method: :delete, class: "nav-link active btn btn-primary" %>
+            </li>
+            <% if current_user.admin? %>
+              <li class="nav-item">
+                <%= link_to t("activerecord.view.user.admin_page"), admin_users_path, class: "nav-link active btn btn-primary" %>
+              </li>
+            <% end %>
+          <% else %>
+        <li class="nav-item">
+          <%= link_to t("activerecord.view.session.Sign_up"), new_user_path, class: "nav-link active btn btn-primary" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to t("activerecord.view.session.Log_in"), new_session_path, class: "nav-link active btn btn-primary" %>
+        </li>
+          <% end %>
+          </ul>
+      </div>
+
     <%= yield %>
+
   </div>
   </body>
 </html>

@@ -6,6 +6,9 @@
     <%= link_to t("activerecord.view.task.new_task"), new_task_path, class: "nav-link active btn btn-primary" %>
   </li>
   <li class="nav-item">
+    <%= link_to t("activerecord.view.user.my_page"), user_path(current_user), class: "nav-link active btn btn-primary" %>
+  </li>
+  <li class="nav-item">
     <%= link_to t("activerecord.view.task.sort_deadline_desc"), tasks_path(sort_expired: "true" ),class: "nav-link active btn btn-primary" %>
   </li>
   <li class="nav-item">

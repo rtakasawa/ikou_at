@@ -1,0 +1,29 @@
+<h1><%= t("activerecord.view.session.Sign_up") %></h1>
+
+<% if @user.errors.present? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="alert alert-danger" role="alert">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_with(model: @user,local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label "name",id: 'user_name' %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "email",id: 'email' %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "password",id: 'password' %>
+    <%= f.password_field :password, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label "password_confirmation",id: 'password_confirmation' %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <%= f.submit t("helpers.submit.create"), class: "btn btn-primary" %>
+<% end %>
