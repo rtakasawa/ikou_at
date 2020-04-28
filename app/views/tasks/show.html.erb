@@ -32,11 +32,12 @@
   </tr>
   <tr>
     <th><%= "ラベル" %></th>
-    <% @task.labels.each do |label| %>
-      <td><%= label.title %></td>
-    <% end %>
+    <td>
+      <% @task.labels.each do |label| %>
+        <span class="label label-success"><%= label.title %></span>
+      <% end %>
+    </td>
   </tr>
-
   </tbody>
 </table>
 
