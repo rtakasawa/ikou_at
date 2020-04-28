@@ -1,34 +1,35 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
+  before_action :login_check_task
 
   def index
     if params[:sort_expired] == "true"
-      @tasks = Task.order(deadline: :desc).page(params[:page])
+      @tasks = current_user.tasks.order(deadline: :desc).page(params[:page])
     elsif params[:sort_rank] == "true"
-      @tasks = Task.order(rank: :desc).page(params[:page])
+      @tasks = current_user.tasks.order(rank: :desc).page(params[:page])
     elsif params[:search].present?
       if params[:search][:task_name].present? && params[:search][:status].present?
-        @tasks = Task.search_task_name(params[:search][:task_name])
+        @tasks = current_user.tasks.search_task_name(params[:search][:task_name])
                    .search_status(params[:search][:status])
                    .page(params[:page])
       elsif params[:search][:task_name].present?
-        @tasks = Task.search_task_name(params[:search][:task_name]).page(params[:page])
+        @tasks = current_user.tasks.search_task_name(params[:search][:task_name]).page(params[:page])
       else
-        @tasks = Task.search_status(params[:search][:status]).page(params[:page])
+        @tasks = current_user.tasks.search_status(params[:search][:status]).page(params[:page])
       end
     else
-      @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)
+      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(10)
     end
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = @task = current_user.tasks.build(task_params)
     if @task.save
-      redirect_to @task,success: "タスクが登録されました"
+      redirect_to @task, success: "タスクが登録されました"
     else
       render "new"
     end
@@ -50,7 +51,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path,info: "タスクは削除されました"
+    redirect_to tasks_path, info: "タスクは削除されました"
   end
 
   private
@@ -61,5 +62,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def login_check_task
+    unless logged_in?
+      redirect_to new_session_path
+    end
   end
 end
