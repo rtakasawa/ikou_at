@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
 
-  wait = Selenium::WebDriver::Wait.new(:timeout => 500)
+  wait = Selenium::WebDriver::Wait.new(:timeout => 1000)
 
   describe 'タスク一覧画面' do
     before do
