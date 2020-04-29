@@ -36,12 +36,16 @@
     <%= f.select :rank, Task.ranks.keys.to_a, {}, class: "form-control" %>
   </div>
   <div class="form-check">
-    <% Label.all.each do |label| %>
-      <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id], class: "form-check-input" %>
-      <%= label.title %>
-    <% end %>
-    <%#= f.collection_check_boxes(:label_ids, Label.all, :id, :title,{},class: "form-check-input") %>
-    <%#= f.label "label",id: 'label',class: "form-check-label" %>
+    <%= f.collection_check_boxes(:label_ids, Label.all, :id, :title) %>
   </div>
   <%= f.submit t("helpers.submit.create"), class: "btn btn-primary" %>
 <% end %>
+
+
+<%# Label.all.each do |label| %>
+  <%#= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id], class: "form-check-input" %>
+<%#= label.title %>
+<%# end %>
+
+<%#= f.collection_check_boxes(:label_ids, Label.all, :id, :title,{},class: "form-check-input") %>
+    <%#= f.label "label",id: 'label',class: "form-check-label" %>

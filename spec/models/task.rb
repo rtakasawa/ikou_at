@@ -26,16 +26,13 @@ RSpec.describe 'タスク管理機能', type: :model do
 
   context "scopeメソッドで検索をした場合" do
     before do
-      Task.create(task_name: "name_test1",
-                  description: "test_description1",
-                  deadline: Date.today,
-                  status: "未着手",
-                  rank: 0, user_id: 1)
-      Task.create(task_name: "name_test2",
-                  description: "test_description2",
-                  deadline: Date.today,
-                  status: "着手中",
-                  rank: 1, user_id: 2)
+      Label.create(id: 1, title:"work")
+      Label.create(id: 2, title:"private")
+      task_first = FactoryBot.create(:task, user_id: 1)
+      task_second = FactoryBot.create(:second_task, user_id: 2)
+      task_first.task_to_labels.create(id:1, label_id: 1)
+      task_first.task_to_labels.create(id:2, label_id: 2)
+      task_second.task_to_labels.create(id:3, label_id: 1)
     end
     it "scopeメソッドでタスク名検索ができる" do
       expect(Task.search_task_name("name").count).to eq 2
@@ -43,8 +40,11 @@ RSpec.describe 'タスク管理機能', type: :model do
     it "scopeメソッドでステータス検索ができる" do
       expect(Task.search_status("着手中").count).to eq 1
     end
-    it "scopeメソッドでタスク名とステータスでの両方で検索ができる" do
-      expect(Task.search_task_name("name").search_status("未着手").count).to eq 1
+    it "scopeメソッドでラベル検索ができる" do
+      expect(Task.search_label(2).count).to eq 1
+    end
+    it "scopeメソッドでタスク名とステータスとラベルでの検索ができる" do
+      expect(Task.search(task_name: "name", status: "未着手", label_id: 1).count).to eq 1
     end
   end
 end
