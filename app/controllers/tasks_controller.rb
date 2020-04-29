@@ -58,10 +58,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  # def login_check_task
-  #   redirect_to new_session_path unless logged_in?
-  # end
-
   def task_search_params
     params.fetch(:search, {}).permit(:task_name, :status, :label_id)
   end
