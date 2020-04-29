@@ -9,42 +9,13 @@ class TasksController < ApplicationController
       # 優先順位でソート
     elsif params[:sort_rank] == "true"
       @tasks = current_user.tasks.order(rank: :desc).page(params[:page])
-      #検索機能
+      # 検索機能
     elsif params[:search].present?
       @search_params = task_search_params
       @tasks = current_user.tasks.search(@search_params).includes(:labels).page(params[:page])
     else
       @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(10)
     end
-
-    # # 終了期限でソート
-    # if params[:sort_expired] == "true"
-    #   @tasks = current_user.tasks.order(deadline: :desc).page(params[:page])
-    #   # 優先順位でソート
-    # elsif params[:sort_rank] == "true"
-    #   @tasks = current_user.tasks.order(rank: :desc).page(params[:page])
-    #   #検索機能
-    # elsif params[:search].present?
-    #   binding.irb
-    #   if params[:search][:task_name].present? && params[:search][:status].present?
-    #     @tasks = current_user.tasks.search_task_name(params[:search][:task_name])
-    #                .search_status(params[:search][:status])
-    #                .page(params[:page])
-    #     # タスク名の検索機能
-    #   elsif params[:search][:task_name].present?
-    #     @tasks = current_user.tasks.search_task_name(params[:search][:task_name]).page(params[:page])
-    #     # 優先順位の検索機能
-    #   elsif params[:search][:status].present?
-    #     @tasks = current_user.tasks.search_status(params[:search][:status]).page(params[:page])
-    #     # ラベルの検索機能
-    #   else
-    #     @task_id = TaskToLabel.search_label_id(params[:search][:label_id]).pluck(:task_id)
-    #     @tasks = current_user.tasks.search_task_to_label(@task_id).page(params[:page])
-    #   end
-    #   # 検索条件がない場合
-    # else
-    #   @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(10)
-    # end
   end
 
   def new
@@ -87,6 +58,7 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+    # @task = current_user.tasks.find(params[:id])
   end
 
   def login_check_task
