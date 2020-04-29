@@ -31,11 +31,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)
@@ -58,13 +56,10 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
-    # @task = current_user.tasks.find(params[:id])
   end
 
   def login_check_task
-    unless logged_in?
-      redirect_to new_session_path
-    end
+    redirect_to new_session_path unless logged_in?
   end
 
   def task_search_params
