@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   def index
     # 終了期限でソート
     if params[:sort_expired] == "true"
-      @tasks = current_user.tasks.order(deadline: :desc).page(params[:page])
+      @tasks = current_user.tasks.order(deadline: :asc).page(params[:page])
       # 優先順位でソート
     elsif params[:sort_rank] == "true"
       @tasks = current_user.tasks.order(rank: :desc).page(params[:page])
