@@ -18,6 +18,8 @@ ja:
         admin: 管理者権限
         created_at: 登録日時
         updated_at: 更新日時
+      label:
+        title: ラベル名
     view:
       task:
         tasks_list: タスク一覧
