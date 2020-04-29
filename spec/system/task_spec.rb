@@ -5,17 +5,17 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe 'タスク一覧画面' do
     before do
-      User.create(id: 1, name: "sample", email: "sample@aaa.com",
+      User.create(id: 1, name: "sample", email: "sample@example.com",
                   password: "0000000",admin: false)
       Label.create(id: 1, title:"work")
-      task_first = FactoryBot.create(:task, user_id: 1)
-      task_second = FactoryBot.create(:second_task, user_id: 1)
-      task_third = FactoryBot.create(:third_task, user_id: 1)
+      task_first = create(:task, user_id: 1)
+      task_second = create(:second_task, user_id: 1)
+      task_third = create(:third_task, user_id: 1)
       task_first.task_to_labels.create(id:1, label_id: 1)
       task_second.task_to_labels.create(id:2, label_id: 1)
       task_third.task_to_labels.create(id:3, label_id: 1)
       visit new_session_path
-      fill_in "session[email]", with: "sample@aaa.com"
+      fill_in "session[email]", with: "sample@example.com"
       fill_in "session[password]", with: "0000000"
       click_on "ログインする"
     end
@@ -90,14 +90,14 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク登録画面' do
     context '必要項目を入力して、createボタンを押した場合' do
       it 'データが保存される' do
-        User.create(id: 1, name: "sample", email: "sample@aaa.com",
+        User.create(id: 1, name: "sample", email: "sample@example.com",
                     password: "0000000",admin: false)
         Label.create(id: 1, title:"work")
         Label.create(id: 2, title:"private")
         Label.create(id: 3, title:"other")
-        FactoryBot.create(:task, user_id: 1)
+        create(:task, user_id: 1)
         visit new_session_path
-        fill_in "session[email]", with: "sample@aaa.com"
+        fill_in "session[email]", with: "sample@example.com"
         fill_in "session[password]", with: "0000000"
         click_on "ログインする"
         click_on "タスク登録"
@@ -120,11 +120,11 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe 'タスク詳細画面' do
     before do
-      User.create(id: 1, name: "sample", email: "sample@aaa.com",
+      User.create(id: 1, name: "sample", email: "sample@example.com",
                   password: "0000000",admin: false)
-      FactoryBot.create(:task, user_id: 1)
+      create(:task, user_id: 1)
       visit new_session_path
-      fill_in "session[email]", with: "sample@aaa.com"
+      fill_in "session[email]", with: "sample@example.com"
       fill_in "session[password]", with: "0000000"
       click_on "ログインする"
     end
@@ -148,14 +148,14 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク編集画面' do
     context '必要項目を入力して、createボタンを押した場合' do
       it 'データが保存される' do
-        User.create(id: 1, name: "sample", email: "sample@aaa.com",
+        User.create(id: 1, name: "sample", email: "sample@example.com",
                     password: "0000000",admin: false)
         Label.create(id: 1, title:"work")
         Label.create(id: 2, title:"private")
         Label.create(id: 3, title:"other")
-        FactoryBot.create(:task, user_id: 1)
+        create(:task, user_id: 1)
         visit new_session_path
-        fill_in "session[email]", with: "sample@aaa.com"
+        fill_in "session[email]", with: "sample@example.com"
         fill_in "session[password]", with: "0000000"
         click_on "ログインする"
         click_link href: "/tasks/1/edit"

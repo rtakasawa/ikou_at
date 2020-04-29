@@ -6,4 +6,8 @@ module SessionsHelper
   def logged_in?
     current_user.present?
   end
+
+  def login_check
+    redirect_to new_session_path unless logged_in?
+  end
 end
