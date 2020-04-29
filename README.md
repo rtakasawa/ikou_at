@@ -1,16 +1,43 @@
 # README
 
-##データベース関連
-
-- テーブル名：tasks
-    - カラム（データ型）
-        - task_name（string）
-        - description(text)
-        
 ##自分の環境
 - ruby 2.6.5
 - rails 5.2.4
 - PostgreSQL 12.2
+
+##データベース関連
+#### labelsテーブル
+   
+|Column|Type|
+|------|----|
+|title|string|
+
+#### task_to_labelsテーブル
+   
+|Column|Type|
+|------|----|
+|task_id|bigint|
+|label_id|bigint|
+   
+#### tasksテーブル
+
+|Column|Type|
+|------|----|
+|task_name|string|
+|description|text|
+|deadline|date|
+|status|string|
+|rank|integer|
+|user_id|bigint|
+   
+#### usersテーブル
+
+|Column|Type|
+|------|----|
+|name|string|
+|email|string|
+|password_digest|string|
+|admin|boolean|
 
 ##Herokuへのデプロイ手順
 ※HerokuアプリケーションURL:https://stormy-hollows-98258.herokuapp.com
