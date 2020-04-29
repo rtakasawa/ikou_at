@@ -54,12 +54,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def check_admin
-    if current_user.nil?
-      redirect_to new_session_path
-    else
-      unless current_user.admin?
-      redirect_to tasks_path, danger: "あなたは管理者ではありません"
-      end
-    end
+    redirect_to tasks_path, danger: "あなたは管理者ではありません" unless current_user.admin?
   end
 end
