@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
-  before_action :login_check_task
+  before_action :login_check
 
   def index
     # 終了期限でソート
@@ -58,9 +58,9 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def login_check_task
-    redirect_to new_session_path unless logged_in?
-  end
+  # def login_check_task
+  #   redirect_to new_session_path unless logged_in?
+  # end
 
   def task_search_params
     params.fetch(:search, {}).permit(:task_name, :status, :label_id)
