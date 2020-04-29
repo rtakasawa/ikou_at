@@ -1,41 +1,83 @@
-# 5.times do |i|
-#   TaskToLabel.create!(
-#     task_id: i+150,
-#     label_id: 3
-#   )
-# end
-#
-# 5.times do |i|
-#   TaskToLabel.create!(
-#     task_id: i+155,
-#     label_id: 4
-#   )
-# end
-#
-# 5.times do |i|
-#   TaskToLabel.create!(
-#     task_id: i+160,
-#     label_id: 5
-#   )
-# end
+# ユーザー作成
+5.times do |n|
+  User.create(
+    name: "test_admin_#{n + 1}",
+    email: "test_admin_#{n + 1}@gmail.com",
+    password: "0000000",
+    password_confirmation: "0000000",
+    admin: true
+  )
+end
 
-# 20.times do |i|
-#   Task.create!(
-#     task_name: "c#{i}番目のタスク",
-#     description: "#{i}番目のブログの内容",
-#     deadline: Date.today,
-#     status: "未着手",
-#     rank: 0,
-#     user_id: 21
-#   )
-# end
+5.times do |n|
+  User.create(
+    name: "test_user_#{n + 1}",
+    email: "test_user_#{n + 1}@gmail.com",
+    password: "0000000",
+    password_confirmation: "0000000",
+    admin: false
+  )
+end
 
-# User.create(name: "a@gmail.com", email: "a@gmail.com", password: "a@gmail.com", password_confirmation: "a@gmail.com", admin: true )
-# User.create(name: "b@gmail.com", email: "b@gmail.com", password: "b@gmail.com", password_confirmation: "b@gmail.com", admin: false )
-# User.create(name: "c@gmail.com", email: "c@gmail.com", password: "c@gmail.com", password_confirmation: "c@gmail.com", admin: false )
+#task作成
+User.all.each do |user|
+  5.times do |i|
+    user.tasks.create(
+      task_name: "#{i}番目のタスク",
+      description: "#{i}番目のタスクの内容",
+      deadline: Date.today.change(day: i+1),
+      status: "未着手",
+      rank: 0,
+      user_id: user.id
+    )
+  end
+end
 
-# Label.create([
-#                {title: "work"},
-#                {title: "private"},
-#                {title: "other"}
-#              ])
+User.all.each do |user|
+  5.times do |i|
+    user.tasks.create(
+      task_name: "#{i}番目のタスク",
+      description: "#{i}番目のタスクの内容",
+      deadline: Date.today.change(day: i+2),
+      status: "着手中",
+      rank: 1,
+      user_id: user.id
+    )
+  end
+end
+
+User.all.each do |user|
+  5.times do |i|
+    user.tasks.create(
+      task_name: "#{i}番目のタスク",
+      description: "#{i}番目のタスクの内容",
+      deadline: Date.today.change(day: i+3),
+      status: "完了",
+      rank: 2,
+      user_id: user.id
+    )
+  end
+end
+
+#label作成
+Label.create([
+               {title: "work"},
+               {title: "private"},
+               {title: "other"}
+             ])
+
+#taskとlabelの紐付け
+Task.all.sample(50).each do |task|
+  label = Label.first
+  task.task_to_labels.create(task_id: task.id, label_id: label.id)
+end
+
+Task.all.sample(50).each do |task|
+  label = Label.second
+  task.task_to_labels.create(task_id: task.id, label_id: label.id)
+end
+
+Task.all.sample(50).each do |task|
+  label = Label.third
+  task.task_to_labels.create(task_id: task.id, label_id: label.id)
+end

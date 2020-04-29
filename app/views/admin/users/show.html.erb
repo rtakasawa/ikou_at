@@ -43,6 +43,7 @@
     <th><%= t('activerecord.attributes.task.deadline') %></th>
     <th><%= t('activerecord.attributes.task.status') %></th>
     <th><%= t('activerecord.attributes.task.rank') %></th>
+    <th><%= t("activerecord.attributes.label.title") %></th>
   </tr>
   </thead>
 
@@ -54,6 +55,11 @@
       <td><%= task.deadline %></td>
       <td><%= task.status %></td>
       <td><%= task.rank %></td>
+      <td>
+        <% task.labels.each do |label| %>
+          <span class="label label-success"><%= label.title %></span>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
