@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :login_check
   before_action :check_admin
 
   def index
@@ -54,12 +55,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def check_admin
-    if current_user.nil?
-      redirect_to new_session_path
-    else
-      unless current_user.admin?
-      redirect_to tasks_path, danger: "あなたは管理者ではありません"
-      end
-    end
+    redirect_to tasks_path, danger: "あなたは管理者ではありません" unless current_user.admin?
   end
 end
