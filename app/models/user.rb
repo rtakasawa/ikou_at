@@ -15,7 +15,7 @@ class User < ApplicationRecord
   private
   def must_not_destroy_last_admin_user
     user = User.find(id)
-    if user.admin? && User.where(admin:true).count == 1
+    if user.admin? && User.admin.one?
       errors.add(:base, '管理者権限は変更できません。少なくとも1人の管理者は必要です。')
       throw :abort
     end

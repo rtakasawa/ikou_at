@@ -28,8 +28,8 @@ RSpec.describe 'タスク管理機能', type: :model do
     before do
       Label.create(id: 1, title:"work")
       Label.create(id: 2, title:"private")
-      task_first = FactoryBot.create(:task, user_id: 1)
-      task_second = FactoryBot.create(:second_task, user_id: 2)
+      task_first = create(:task, user_id: 1)
+      task_second = create(:second_task, user_id: 2)
       task_first.task_to_labels.create(id:1, label_id: 1)
       task_first.task_to_labels.create(id:2, label_id: 2)
       task_second.task_to_labels.create(id:3, label_id: 1)

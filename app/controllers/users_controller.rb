@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    redirect_to tasks_path unless @user == current_user
+    redirect_to tasks_path unless @user.id == current_user.id
   end
 
   private
