@@ -6,7 +6,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do
     before do
       User.create(id: 1, name: "sample", email: "sample@example.com",
-                  password: "0000000",admin: false)
+                                   password: "0000000",admin: false)
       Label.create(id: 1, title:"work")
       task_first = create(:task, user_id: 1)
       task_second = create(:second_task, user_id: 1)
@@ -72,6 +72,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context "複数のタスクを作成した場合" do
       it "終了期限のソートボタンをクリックすると終了期限を昇順に並び替えることができる", :retry => 3 do
         click_on "終了期限でソートする"
+        sleep(0.5) # エラー回避のため
         task_list = all('tbody tr' )
         wait.until{ expect(task_list[0]).to have_content '1900-01-01' }
         wait.until{ expect(task_list[1]).to have_content '2000-01-01' }
@@ -79,6 +80,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       it "優先順位のソートボタンをクリックすると優先順位を降順に並び替えることができる", :retry => 3 do
         click_on "優先順位でソートする"
+        sleep(0.5) # エラー回避のため
         task_list = all('tbody tr' )
         wait.until{ expect(task_list[0]).to have_content '高' }
         wait.until{ expect(task_list[1]).to have_content '中' }
