@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :tasks, dependent: :destroy
+
   before_validation { email.downcase! }
   before_update :must_not_destroy_last_admin_user
   before_destroy :must_not_destroy_last_admin_user
@@ -10,7 +12,6 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
 
   has_secure_password
-  has_many :tasks, dependent: :destroy
 
   private
   def must_not_destroy_last_admin_user

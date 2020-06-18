@@ -1,11 +1,11 @@
 class Task < ApplicationRecord
-  validates :task_name, presence: true
-  validates :description, presence: true
-  validates :deadline, presence: true
-
   belongs_to :user
   has_many :task_to_labels, dependent: :destroy
   has_many :labels, through: :task_to_labels
+
+  validates :task_name, presence: true
+  validates :description, presence: true
+  validates :deadline, presence: true
 
   enum rank:{ 低: 0, 中: 1, 高: 2 }
 
